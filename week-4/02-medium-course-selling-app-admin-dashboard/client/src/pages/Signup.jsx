@@ -22,7 +22,7 @@ function Signup() {
       body: JSON.stringify({ email: email, password: password }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => localStorage.setItem("token", data.token));
     setEmail("");
     setPassword("");
     setConfirmPassword("");

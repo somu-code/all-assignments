@@ -1,6 +1,7 @@
 import express, { json } from "express";
 const app = express();
 import cors from "cors";
+import bcrypt from "bcrypt";
 import db from "./db.mjs";
 const PORT = 3000;
 
@@ -19,7 +20,8 @@ app.post("/admin/signup", async (req, res) => {
     if (admin) {
       res.status(403).json({ message: "Admin email already exists" });
     } else {
-      const newAdmin = new Admin({ email, password });
+      const hashedPassword = await bcrypt.hash(password, 8);
+      const newAdmin = new Admin({ email, password: hashedPassword });
       await newAdmin.save();
       const adminToken = generateAdminJWT(email);
       res.json({ message: "Admin created successfully", token: adminToken });

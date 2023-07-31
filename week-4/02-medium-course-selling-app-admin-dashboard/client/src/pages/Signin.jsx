@@ -7,6 +7,7 @@ function Signin() {
     event.preventDefault();
     fetch("http://localhost:3000/admin/signin", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

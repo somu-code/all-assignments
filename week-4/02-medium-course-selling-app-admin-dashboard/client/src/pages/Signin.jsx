@@ -1,14 +1,37 @@
+import { useState } from "react";
+
 function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch("http://localhost:3000/admin/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-      <form className="flex flex-col bg-slate-300 p-6 gap-4 rounded-xl min-w-[320px]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col bg-slate-300 p-6 gap-4 rounded-xl min-w-[320px]"
+      >
         <h3 className="text-center font-semibold text-[#2866df]">Sign In</h3>
         <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
           className="pl-2 py-2 rounded-md focus:outline-blue-500"
+          onChange={(event) => setEmail(event.target.value)}
+          value={email}
         />
         <input
           type="password"
@@ -16,6 +39,8 @@ function Signin() {
           id="password"
           placeholder="Password"
           className="pl-2 py-2 rounded-md focus:outline-blue-500"
+          onChange={(event) => setPassword(event.target.value)}
+          value={password}
         />
         <button
           type="submit"

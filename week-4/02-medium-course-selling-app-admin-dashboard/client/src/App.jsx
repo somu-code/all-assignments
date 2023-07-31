@@ -12,9 +12,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/add-course" element={<AddCourse />} />
+        <Route path="/admin/signup" element={<Signup />} />
+        <Route path="/admin/signin" element={<Signin />} />
+        <Route path="/admin/add-course" element={<AddCourse />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>

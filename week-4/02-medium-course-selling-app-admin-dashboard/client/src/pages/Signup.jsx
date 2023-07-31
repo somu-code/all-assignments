@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,20 +14,19 @@ function Signup() {
       return;
     }
     setVisible(false);
-    console.log(email);
-    console.log(password);
     fetch("http://localhost:3000/admin/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
+      body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => localStorage.setItem("token", data.token));
+      .then((data) => console.log(data));
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    navigate("/admin/signin");
   };
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">

@@ -4,6 +4,8 @@ function AddCourse() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [published, setPublished] = useState(false);
+  console.log(published);
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -39,10 +41,16 @@ function AddCourse() {
           placeholder="Price"
           className="pl-2 py-2 rounded-md focus:outline-blue-500"
           onChange={(event) => setPrice(event.target.value)}
+          value={price}
         />
         <div className="bg-white py-2 rounded-md px-2 flex flex-row justify-between items-center">
           <label htmlFor="coursePublished">Published</label>
-          <select name="published" id="coursePublished">
+          <select
+            name="published"
+            id="coursePublished"
+            onChange={(event) => setPublished(event.target.value)}
+            value={published}
+          >
             <option value="true">True</option>
             <option value="false">False</option>
           </select>

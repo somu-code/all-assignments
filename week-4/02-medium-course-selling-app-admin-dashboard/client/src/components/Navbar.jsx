@@ -8,10 +8,10 @@ function Navbar() {
           <div className="">Coursera</div>
         </Link>
         <div className="flex flex-row items-center gap-4">
-          <Link to="/signup">
+          <Link to="/admin/signup">
             <button>Sign Up</button>
           </Link>
-          <Link to="/signin">
+          <Link to="/admin/signin">
             <button>Sign In</button>
           </Link>
         </div>

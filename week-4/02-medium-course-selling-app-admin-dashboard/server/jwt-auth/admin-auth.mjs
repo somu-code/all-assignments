@@ -12,6 +12,7 @@ export const authenticateAdminJWT = async (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.ADMIN_TOKEN_SECRET, (error, admin) => {
       if (error) {
+        console.log("this code runs")
         res.sendStatus(403);
       } else {
         next();

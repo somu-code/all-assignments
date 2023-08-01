@@ -76,8 +76,8 @@ app.post("/admin/add-course", authenticateAdminJWT, async (req, res) => {
 
 app.get("/admin/courses", authenticateAdminJWT, async (req, res) => {
   try {
-    const courses = await Course.find();
-    res.json({ courses });
+    const courses = await Course.find({});
+    res.json(courses);
   } catch (error) {
     res.sendStatus(500);
   }

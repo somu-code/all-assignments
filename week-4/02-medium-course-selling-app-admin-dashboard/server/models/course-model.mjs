@@ -5,6 +5,7 @@ const courseSchema = new mongoose.Schema({
   description: String,
   price: Number,
   published: Boolean,
+  imageURL: String,
 });
 
 const Course = mongoose.model("Course", courseSchema);

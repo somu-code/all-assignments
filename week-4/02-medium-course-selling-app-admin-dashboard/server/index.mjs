@@ -8,7 +8,11 @@ const PORT = 3000;
 
 import dotenv from "dotenv";
 import Admin from "./models/admin-model.mjs";
-import { generateAdminJWT } from "./jwt-auth/admin-auth.mjs";
+import Course from "./models/course-model.mjs";
+import {
+  generateAdminJWT,
+  authenticateAdminJWT,
+} from "./jwt-auth/admin-auth.mjs";
 dotenv.config();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
@@ -49,7 +53,7 @@ app.post("/admin/signin", async (req, res) => {
     res.cookie("accessToken", adminToken, {
       domain: "localhost",
       path: "/",
-      maxAge: 216000,
+      maxAge: 60 * 60 * 1000,
       httpOnly: true,
       secure: true,
       sameSite: "strict",
@@ -59,6 +63,18 @@ app.post("/admin/signin", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+
+app.post("/admin/add-course", authenticateAdminJWT, async (req, res) => {
+  try {
+    const course = new Course(req.body);
+    await course.save();
+    res.json({ message: "Course created successfully", courseID: course.id });
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
+app.get("admin/courses", authenticateAdminJWT, async (req, res) => {});
 
 app.listen(3000, () => {
   console.log(`Express server listening on http://localhost:${PORT}`);

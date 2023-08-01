@@ -5,9 +5,22 @@ function AddCourse() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [published, setPublished] = useState(false);
-  console.log(published);
+  // const [image, setImage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
+    fetch("http://localhost:3000/admin/add-course", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, price, published }),
+    });
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setPublished(false);
+    // setImage("");
   };
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">

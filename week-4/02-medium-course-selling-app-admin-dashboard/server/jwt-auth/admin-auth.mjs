@@ -6,3 +6,18 @@ export const generateAdminJWT = (email) => {
     expiresIn: process.env.TOKEN_EXPIRY,
   });
 };
+
+export const authenticateAdminJWT = async (req, res, next) => {
+  const token = req.cookies.accessToken;
+  if (token) {
+    jwt.verify(token, process.env.ADMIN_TOKEN_SECRET, (error, admin) => {
+      if (error) {
+        res.sendStatus(403);
+      } else {
+        next();
+      }
+    });
+  } else {
+    res.sendStatus(403);
+  }
+};

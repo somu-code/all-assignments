@@ -74,7 +74,14 @@ app.post("/admin/add-course", authenticateAdminJWT, async (req, res) => {
   }
 });
 
-app.get("admin/courses", authenticateAdminJWT, async (req, res) => {});
+app.get("/admin/courses", authenticateAdminJWT, async (req, res) => {
+  try {
+    const courses = await Course.find();
+    res.json({ courses });
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
 
 app.listen(3000, () => {
   console.log(`Express server listening on http://localhost:${PORT}`);

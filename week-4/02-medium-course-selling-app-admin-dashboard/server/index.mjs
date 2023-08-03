@@ -83,6 +83,15 @@ app.get("/admin/courses", authenticateAdminJWT, async (req, res) => {
   }
 });
 
+app.get("/admin/profile", authenticateAdminJWT, async (req, res) => {
+  try {
+    const admin = req.admin;
+    res.json({ email: admin.email });
+  } catch (error) {
+    res.status.json({ message });
+  }
+});
+
 app.listen(3000, () => {
   console.log(`Express server listening on http://localhost:${PORT}`);
 });

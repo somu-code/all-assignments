@@ -5,19 +5,27 @@ function Signin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (event) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    fetch("http://localhost:3000/admin/signin", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/admin/signin", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        console.log(loggedIn);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
     setEmail("");
     setPassword("");
-    navigate("/");
   };
   return (
     <div className="min-h-[90vh] flex flex-row justify-center items-center">
@@ -49,6 +57,9 @@ function Signin() {
             onChange={(event) => setPassword(event.target.value)}
             value={password}
           />
+          <p className="text-center text-red-500 font-medium">
+            Invalid email or password
+          </p>
           <button
             type="submit"
             className="bg-[#2866df] text-white font-semibold py-2 rounded-md hover:bg-[#215ac8]"

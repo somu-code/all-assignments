@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <header className="">
       <nav className="flex flex-row justify-between items-center font-medium px-6 py-3">

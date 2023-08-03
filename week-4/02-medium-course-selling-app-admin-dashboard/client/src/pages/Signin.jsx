@@ -5,7 +5,6 @@ function Signin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -18,7 +17,6 @@ function Signin() {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        console.log(loggedIn);
         navigate("/");
       }
     } catch (error) {

@@ -7,20 +7,24 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       setVisible(true);
       return;
     }
     setVisible(false);
-    fetch("http://localhost:3000/admin/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      await fetch("http://localhost:3000/admin/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
     setEmail("");
     setPassword("");
     setConfirmPassword("");
